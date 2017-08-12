@@ -29,7 +29,6 @@ import apiRouter from "./routes/api";
 /**
  * API keys and Passport configuration.
  */
-import * as passportConfig from "./config/passport";
 class App {
 
   // ref to Express instance
