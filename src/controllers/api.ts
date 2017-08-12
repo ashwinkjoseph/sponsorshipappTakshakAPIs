@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import * as moment from "moment";
 import * as mongoose from "mongoose";
-import * as request from "request-promise-native";
 import { CompanyModel, default as Company } from "../models/Company";
 class ApiController {
   public add(req: Request, res: Response, next: NextFunction) {
