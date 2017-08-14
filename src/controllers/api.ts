@@ -87,6 +87,19 @@ class ApiController {
     });
   }
 
+  public addChecker(req: Request, res: Response, next: NextFunction) {
+    Company.find({
+      companyName: req.body.companyName,
+    }).exec((err, results) => {
+      if (!err) {
+        res.status(200).json(results);
+      }
+      else {
+        res.status(500).json(err);
+      }
+    });
+  }
+
 }
 
 const apiController = new ApiController();

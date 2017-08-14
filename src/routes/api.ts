@@ -13,6 +13,7 @@ class API {
     this.router.post("/", ApiController.add);
     this.router.put("/:taskID", ApiController.update);
     this.router.delete("/:taskID", ApiController.remove);
+    this.router.get("/add", ApiController.addChecker);
   }
 }
 
