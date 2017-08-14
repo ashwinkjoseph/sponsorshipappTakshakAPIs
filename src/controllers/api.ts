@@ -14,6 +14,9 @@ class ApiController {
       }
       else {
         if (results.length) {
+          res.status(400).json({status: "already exists"});
+        }
+        else {
           const company: CompanyModel = new Company({
             companyName:  req.body.companyName,
             latlng: req.body.latlng,
@@ -26,9 +29,6 @@ class ApiController {
               res.status(200).json({status: "success"});
             }
           });
-        }
-        else {
-          res.status(400).json({status: "already exists"});
         }
       }
     });
