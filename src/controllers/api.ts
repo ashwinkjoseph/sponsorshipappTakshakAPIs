@@ -9,19 +9,29 @@ class ApiController {
       companyName:  req.body.companyName,
       latlng: req.body.latlng,
     });
-    company.save((err: any) => {
-      if (err) {
-        res.status(500).json({status: "failed"});
+    Company.findOne({
+      companyName:  req.body.companyName,
+      latlng: req.body.latlng,
+    }).exec().then((results) => {
+      if (results) {
+        res.status(400).json({status: "already exists"});
       }
       else {
-        res.status(200).json({status: "success"});
+          company.save((err: any) => {
+          if (err) {
+            res.status(500).json({status: "failed"});
+          }
+          else {
+            res.status(200).json({status: "success"});
+          }
+        });
       }
     });
   }
   public remove(req: Request, res: Response, next: NextFunction) {
     // logic for DELETE
     Company.remove({
-      _id : new mongoose.Schema.Types.ObjectId(req.params.taskID),
+      _id : req.params.taskID,
     }).exec((err: any) => {
       if (err) {
         res.status(500).json({status: err});
