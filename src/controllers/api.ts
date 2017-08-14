@@ -92,6 +92,7 @@ class ApiController {
       companyName: req.params.companyName,
     }).exec((err, results) => {
       if (!err) {
+        console.log(results);
         res.status(200).json(results);
       }
       else {
