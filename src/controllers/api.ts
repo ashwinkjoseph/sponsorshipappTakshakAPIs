@@ -88,6 +88,8 @@ class ApiController {
   }
 
   public addChecker(req: Request, res: Response, next: NextFunction) {
+    let companyName = req.params.companyName;
+    companyName = companyName.replace(/+/g, " ");
     Company.find({
       companyName: req.params.companyName,
     }).exec((err, results) => {
