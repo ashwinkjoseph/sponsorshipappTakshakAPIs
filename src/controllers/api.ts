@@ -89,7 +89,7 @@ class ApiController {
 
   public addChecker(req: Request, res: Response, next: NextFunction) {
     Company.find({
-      companyName: req.body.companyName,
+      companyName: req.params.companyName,
     }).exec((err, results) => {
       if (!err) {
         res.status(200).json(results);
