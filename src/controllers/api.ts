@@ -5,15 +5,15 @@ import { CompanyModel, default as Company } from "../models/Company";
 class ApiController {
   public add(req: Request, res: Response, next: NextFunction) {
     // logic for post
-    const company: CompanyModel = new Company({
-      companyName:  req.body.companyName,
-      latlng: req.body.latlng,
-    });
     Company.find({
       companyName:  req.body.companyName,
       latlng: req.body.latlng,
     }).exec().then((results) => {
       if (results.length) {
+        const company: CompanyModel = new Company({
+          companyName:  req.body.companyName,
+          latlng: req.body.latlng,
+        });
         company.save((err: any) => {
           if (err) {
             res.status(500).json({status: "failed"});
