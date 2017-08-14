@@ -9,15 +9,12 @@ class ApiController {
       companyName:  req.body.companyName,
       latlng: req.body.latlng,
     });
-    Company.findOne({
+    Company.find({
       companyName:  req.body.companyName,
       latlng: req.body.latlng,
     }).exec().then((results) => {
-      if (results) {
-        res.status(400).json({status: "already exists"});
-      }
-      else {
-          company.save((err: any) => {
+      if (results.length) {
+        company.save((err: any) => {
           if (err) {
             res.status(500).json({status: "failed"});
           }
@@ -26,6 +23,11 @@ class ApiController {
           }
         });
       }
+      else {
+        res.status(400).json({status: "already exists"});
+      }
+    }).catch((err) => {
+      res.status(500).json({status: "failed"});
     });
   }
   public remove(req: Request, res: Response, next: NextFunction) {
