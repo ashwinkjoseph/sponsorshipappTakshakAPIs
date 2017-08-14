@@ -8,7 +8,10 @@ class ApiController {
     Company.find({
       companyName:  req.body.companyName,
       latlng: req.body.latlng,
-    }).exec().then((results) => {
+    }).exec((err, results) => {
+      if (err) {
+        res.status(500).json({status: "failed"});
+      }
       if (results.length) {
         const company: CompanyModel = new Company({
           companyName:  req.body.companyName,
@@ -26,11 +29,9 @@ class ApiController {
       else {
         res.status(400).json({status: "already exists"});
       }
-    }).catch((err) => {
-      res.status(500).json({status: "failed"});
     });
   }
-  public remove(req: Request, res: Response, next: NextFunction) {
+  public remove(req: Request, res: Response, next: NextFunction); {
     // logic for DELETE
     Company.remove({
       _id : req.params.taskID,
@@ -44,7 +45,7 @@ class ApiController {
     });
     // res.status(200).json({status: "ok"});
   }
-  public update(req: Request, res: Response, next: NextFunction) {
+  public update(req: Request, res: Response, next: NextFunction); {
     // logic for PUT
     Company.findById(req.params.taskID).exec((err: any, company: CompanyModel) => {
       company.companyName = req.body.companyName;
@@ -60,7 +61,7 @@ class ApiController {
     });
     // res.status(200).json({status: "ok"});
   }
-  public read(req: Request, res: Response, next: NextFunction) {
+  public read(req: Request, res: Response, next: NextFunction); {
     // logic for GET
     Company.find({}, (err: any, company: CompanyModel) => {
       if (err) {
@@ -73,7 +74,7 @@ class ApiController {
     // res.status(200).json({status: "ok"});
   }
 
-  public readParticular(req: Request, res: Response, next: NextFunction) {
+  public readParticular(req: Request, res: Response, next: NextFunction); {
     Company.findById(req.params.taskID).exec((err: any, company: CompanyModel) => {
       if (err) {
         res.status(500).json({status: err});
